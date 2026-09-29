@@ -1,0 +1,6 @@
+node_modules/
+snapshots/
+renders/
+.hyperframes/
+*.mp4
+!earth-so-far-preview.mp4

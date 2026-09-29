@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Earth, So Far</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/InstrumentSerif-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --fg: #efeae2;
+        --fg-dim: rgba(239, 234, 226, 0.78);
+        --ember: #ff6a2b;
+        --void: #050507;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--void);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--void);
+        color: var(--fg);
+      }
+      #gl {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .txt {
+        position: absolute;
+        z-index: 2;
+        isolation: isolate;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        text-align: center;
+        opacity: 0;
+      }
+      .txt .line .w {
+        display: inline-block;
+      }
+      .txt::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1500px;
+        height: 260px;
+        margin-left: -750px;
+        margin-top: -130px;
+        background: radial-gradient(ellipse at center, rgba(5, 5, 7, 0.5) 0%, rgba(5, 5, 7, 0.28) 40%, rgba(5, 5, 7, 0) 70%);
+      }
+      .txt .lbl,
+      .txt .line {
+        position: relative;
+      }
+      .txt.pos-center {
+        top: 468px;
+      }
+      .txt.pos-low {
+        top: 760px;
+      }
+      .txt.pos-high {
+        top: 128px;
+      }
+      .lbl {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--fg);
+        text-shadow: 0 0 18px rgba(0, 0, 0, 0.9), 0 0 3px rgba(0, 0, 0, 0.8);
+      }
+      .line {
+        font-family: "Instrument Serif", serif;
+        font-size: 72px;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        color: var(--fg);
+        max-width: 1500px;
+        text-shadow: 0 0 34px rgba(0, 0, 0, 0.75), 0 0 4px rgba(0, 0, 0, 0.7);
+      }
+      .plate-lbl .lbl {
+        font-size: 30px;
+        letter-spacing: 0.2em;
+        color: var(--fg);
+      }
+      #hud {
+        position: absolute;
+        left: 0;
+        bottom: 54px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        opacity: 0;
+      }
+      #counter {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 30px;
+        letter-spacing: 0.08em;
+        color: var(--fg);
+        text-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
+        white-space: nowrap;
+      }
+      #counter .unit {
+        color: var(--fg);
+        font-size: 22px;
+        letter-spacing: 0.18em;
+        margin-left: 14px;
+      }
+      #ruler {
+        position: relative;
+        width: 1200px;
+        height: 30px;
+      }
+      #ruler .base {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 100%;
+        height: 2px;
+        background: rgba(239, 234, 226, 0.35);
+      }
+      #ruler .fill {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 100%;
+        height: 2px;
+        background: var(--ember);
+        transform-origin: 0 50%;
+      }
+      #ruler .tick {
+        position: absolute;
+        top: 0;
+        width: 2px;
+        height: 14px;
+        background: rgba(239, 234, 226, 0.6);
+      }
+      #ruler .eon {
+        position: absolute;
+        top: 14px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.14em;
+        color: rgba(239, 234, 226, 0.9);
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        white-space: nowrap;
+      }
+      #ruler .head {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        margin-left: -6px;
+        border-radius: 6px;
+        background: var(--ember);
+        box-shadow: 0 0 14px var(--ember);
+      }
+      svg.layer {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        opacity: 0;
+        overflow: visible;
+      }
+      #title {
+        position: absolute;
+        left: 0;
+        top: 430px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+        opacity: 0;
+      }
+      #title .name {
+        font-family: "Instrument Serif", serif;
+        font-size: 136px;
+        letter-spacing: 0.06em;
+        color: var(--fg);
+      }
+      #cred {
+        position: absolute;
+        left: 0;
+        bottom: 46px;
+        width: 100%;
+        text-align: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.1em;
+        color: rgba(239, 234, 226, 0.6);
+        opacity: 0;
+      }
+      #title .sub {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 0.3em;
+        color: var(--fg-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="120" data-width="1920" data-height="1080">
+      <canvas id="gl" width="1920" height="1080" data-layout-allow-overflow></canvas>
+      <div id="overlay"></div>
+      <audio id="score" src="assets/audio/score.wav" data-start="0" data-duration="120" data-track-index="10" data-volume="1"></audio>
+    </div>
+    <script src="timeline.js"></script>
+    <script src="data.js"></script>
+    <script src="src/shaders-common.js"></script>
+    <script src="src/shaders-scenes.js"></script>
+    <script src="src/overlay.js"></script>
+    <script src="src/engine.js"></script>
+    <script>
+      // Build once the DOM exists: overlay (GSAP timeline) + WebGL engine, then register the timeline.
+      function earthBoot() {
+        const tl = window.EARTH_BUILD_OVERLAY();
+        window.EARTH_BUILD_ENGINE();
+        window.__timelines["main"] = tl;
+      }
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", earthBoot);
+      else earthBoot();
+    </script>
+  </body>
+</html>
