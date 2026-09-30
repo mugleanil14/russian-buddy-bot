@@ -39,7 +39,7 @@ window.EARTH_BUILD_OVERLAY = function () {
     [18.2, 22.2, "low", "~4.5 billion years ago", "Its debris becomes the Moon."],
     [25.5, 29.7, "low", "~4.4 billion years ago · oldest evidence of water", "Then, oceans."],
     [31.2, 37.0, "low", "≥3.5 billion years ago · earliest fossil evidence", "Life begins."],
-    [38.1, 42.2, "low", "~2.4 billion years ago · Great Oxidation Event", "Microbes fill the sky with oxygen."],
+    [38.1, 42.2, "low", "~2.4 billion years ago · Great Oxidation Event", "Oxygen enters the sky."],
     [43.1, 47.2, "high", "~720 million years ago · Snowball Earth", "Ice, to the equator."],
     [48.3, 53.4, "high", "539 million years ago · Cambrian explosion", "Then, everything at once."],
     [54.3, 58.6, "low", "230 – 66 million years ago · dinosaurs", "Giants, for 165 million years."],
@@ -123,7 +123,7 @@ window.EARTH_BUILD_OVERLAY = function () {
   const K = [[0, 4.54e9], [4.7, 4.54e9], [5.5, 4.5e9], [22.6, 4.5e9], [23.3, 4.4e9], [30.2, 4.4e9], [31.0, 3.5e9], [37.6, 3.5e9], [38.3, 2.4e9],
     [42.6, 2.4e9], [43.3, 7.2e8], [47.6, 7.2e8], [48.3, 5.39e8], [53.9, 5.39e8], [54.6, 2.3e8], [58.8, 6.6e7], [65.2, 6.6e7], [66.2, 7e6],
     [70.1, 7e6], [70.6, 3e5], [72.6, 3e5], [73.1, 4e4]];
-  const YEARS = { farming: 12000, cuneiform: 5125, pyramid: 4585, gutenberg: 572, coalbrookdale: 266, first_flight: 123, trinity: 81, earthrise: 58, bootprint: 57, web: 35, flash1: 20, flash2: 10, flash3: 3 };
+  const YEARS = { farming: 12000, cuneiform: 5125, pyramid: 4585, gutenberg: 571, coalbrookdale: 266, first_flight: 123, trinity: 81, earthrise: 58, bootprint: 57, web: 35, flash1: 20, flash2: 10, flash3: 3 };
   let prev = 4e4;
   plates.forEach((p, i) => {
     const next = i + 1 < plates.length ? plates[i + 1].t : TL.montage.t1;

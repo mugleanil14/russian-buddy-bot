@@ -82,10 +82,10 @@ HITS = {
 # Montage plates: (beat index, key, label). Each plate holds until the next.
 MONTAGE = [
     (0, "farming", "12,000 YEARS AGO · FARMING"),
-    (4, "cuneiform", "c. 3100 BCE · WRITING"),
+    (4, "cuneiform", "ca. 3100 BCE · WRITING"),
     (8, "pyramid", "2560 BCE · THE GREAT PYRAMID"),
-    (11, "gutenberg", "1450s · THE PRINTING PRESS"),
-    (14, "coalbrookdale", "1760s · INDUSTRY"),
+    (11, "gutenberg", "ca. 1455 · THE GUTENBERG BIBLE"),
+    (14, "coalbrookdale", "1760–1840 · INDUSTRY"),
     (16, "first_flight", "1903 · FLIGHT"),
     (18, "trinity", "1945 · THE ATOMIC AGE"),
     (20, "earthrise", "1968 · EARTHRISE"),

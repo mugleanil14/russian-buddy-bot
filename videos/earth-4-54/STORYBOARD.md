@@ -58,7 +58,7 @@ Source: stromatolites ~3.48 Ga, Dresser Fm., Pilbara; older claims (3.7 Ga) deba
 - duration: 5s (37.5–42.5)
 - scene: Oxygen bubbles rise; the planet's haze turns from amber to blue.
 - src: index.html
-- label: ~2.4 BILLION YEARS AGO · GREAT OXIDATION EVENT · serif: "Microbes fill the sky with oxygen."
+- label: ~2.4 BILLION YEARS AGO · GREAT OXIDATION EVENT · serif: "Oxygen enters the sky." (O2 rose from trace to a small fraction of today’s level)
 
 ## Frame 7 — Ice
 - duration: 5s (42.5–47.5)
@@ -107,7 +107,7 @@ Source: Jebel Irhoud ~315 ka (Hublin et al., Nature 2017); Sulawesi hand stencil
 - duration: 13s (75.0–88.0)
 - scene: Cuts accelerate with the tempo; archival plates (graded silver) interleave with a night globe whose lights multiply.
 - src: index.html
-- labels: 12,000 YEARS AGO · FARMING / c. 3100 BCE · WRITING / 2560 BCE · GREAT PYRAMID / 1450s · THE PRINTING PRESS / 1760s · INDUSTRY / 1903 · FLIGHT / 1945 · THE ATOMIC AGE / 1968 · EARTHRISE / 1969 · THE MOON / 1991 · THE WEB
+- labels: 12,000 YEARS AGO · FARMING / CA. 3100 BCE · WRITING / 2560 BCE · GREAT PYRAMID / CA. 1455 · THE GUTENBERG BIBLE / 1760–1840 · INDUSTRY / 1903 · FLIGHT / 1945 · THE ATOMIC AGE / 1968 · EARTHRISE / 1969 · THE MOON / 1991 · THE WEB
 Sources: proto-cuneiform tablet shown is Met 327384, ca. 3100–2900 BCE; Gutenberg Bible (LoC copy) catalogued 1454; Wright Flyer 17 Dec 1903; Trinity 16 Jul 1945; Apollo 8 Earthrise 24 Dec 1968; Apollo 11 20 Jul 1969; WWW public Aug 1991.
 
 ## Frame 14 — Now

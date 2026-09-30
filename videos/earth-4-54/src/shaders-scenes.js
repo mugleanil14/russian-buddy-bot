@@ -62,7 +62,7 @@ void main(){
     float crack = smoothstep(.07, .0, v.y - v.x) * smoothstep(.35, .6, fbm3(q * .5 + 3., 3));
     float flow = fbm3(q * 2.2 + vec3(t * .35, -t * .2, 0.), 3);
     float lake = smoothstep(.66, .78, fbm3(q * .22 + 7., 4)) * .8;
-    float heat = max(crack * (.35 + .8 * flow), lake * (.55 + .5 * flow));
+    float heat = max(crack * (.35 + .8 * flow), lake * (.4 + .35 * flow));
     float crust = .4 + .6 * fbm3(q * 3.2, 3);
     float diff = max(dot(n, L), 0.);
     float fres = pow(1. - max(dot(n, -rd), 0.), 5.);
@@ -483,15 +483,15 @@ S.fire = `
 void main(){
   vec2 uv = screenUV(); float t = uT;
   uv *= 1. - .05 * t;
-  vec2 p = uv * vec2(1.15, .82) + vec2(0., .42);
+  vec2 p = (uv - vec2(.42, 0.)) * vec2(1.15, .82) + vec2(0., .42);
   float n = fbm2(vec2(p.x * 3., p.y * 2. - t * 2.3), 6);
   float n2 = fbm2(vec2(p.x * 6. + n * 1.5, p.y * 4. - t * 3.6), 4);
-  float shape = 1. - abs(p.x + (n - .5) * .25 * p.y) * 1.9 - max(p.y, 0.) * 1.15;
+  float shape = 1. - abs(p.x + (n - .5) * .35 * p.y) * 2.3 - max(p.y, 0.) * 1.1;
   float fl = sat(shape + n * .9 + n2 * .35 - .66);
   fl = pow(fl, 1.35);
-  vec3 col = blackbody(fl * 1.1) * fl * 3.2;
+  vec3 col = blackbody(fl * .9) * fl * 1.25;
   col += vec3(1., .5, .15) * particles(uv, 22., t, vec2(.12, -1.7), .045, 4.) * smoothstep(-.25, .45, uv.y) * 1.2;
-  col += vec3(.6, .18, .04) * exp(-length(uv - vec2(0., -.3)) * 2.4) * (.55 + .12 * sin(t * 13.) * sin(t * 5.3));
+  col += vec3(.6, .18, .04) * exp(-length(uv - vec2(.42, -.3)) * 2.4) * (.55 + .12 * sin(t * 13.) * sin(t * 5.3));
   O = vec4(toSRGB(aces(col * 1.2)), 1.);
 }`;
 
@@ -552,7 +552,8 @@ void main(){
   vec3 mono = vec3(l) * mix(vec3(1.), vec3(1.1, 1., .82), uB.y);
   c = mix(mono, c, uB.x);
   c = max((c - .18) * uB.z + .18, 0.);
-  O = vec4(toSRGB(c * 1.05), 1.);
+  float scrim = mix(.28, 1., smoothstep(.04, .52, fc.y)) * mix(.55, 1., smoothstep(.05, .5, length((fc - vec2(.5, .26)) * vec2(1., 2.4))));
+  O = vec4(toSRGB(c * .92 * scrim), 1.);
 }`;
 
 // ─────────────────────────────────────────── 15 · GLOBE — night lights / day Earth (real NASA textures)
